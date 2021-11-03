@@ -1,14 +1,13 @@
-<div class="mt-3">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"
-        style="background-color: rgba(157, 12, 224, 0.938);color: white;">
+<div class="container">
+    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#addModal"
+        style="background-color: rgba(157, 12, 224, 0.938);color: white; margin-bottom: 10px;">
         Add Staff
     </button>
     <table class="table">
         <thead class="table-light">
             <tr>
+                <th scope="col">Full Name</th>
                 <th scope="col">Title</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
                 <th scope="col">Action</th>
@@ -16,9 +15,8 @@
         </thead>
         <tbody>
             <tr *ngFor="let staff of Staffs">
+                <td>{{staff.firstName}}{{staff.lastName}}</td>
                 <td>{{staff.title}}</td>
-                <td>{{staff.firstName}}</td>
-                <td>{{staff.lastName}}</td>
                 <td>{{staff.email}}</td>
                 <td>{{staff.role}}</td>
                 <td>
@@ -91,12 +89,16 @@
                             <label for="ConfirmPassword" class="form-label">ConfirmPassword</label>
                             <input type="password" formControlName="ConfirmPassword" class="form-control"
                                 id="ConfirmPassword" #cpassword>
-                            <span style="color: red;" *ngIf="isSubmitted && ConfirmPassword?.errors?.required">
-                                Confirm Password need to be at least 6 characters
-                            </span>
-                            <span style="color: red" *ngIf="cpassword.value != password.value">
-                                Confirm Password need to match Password
-                            </span>
+                            <div>
+                                <span style="color: red;" *ngIf="isSubmitted && ConfirmPassword?.errors?.required">
+                                    Confirm Password need to be at least 6 characters
+                                </span>
+                            </div>
+                            <div>
+                                <span style="color: red" *ngIf="isSubmitted && cpassword.value != password.value">
+                                    Confirm Password need to match Password
+                                </span>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -120,40 +122,40 @@
                 <div class="modal-body">
                     <form [formGroup]="updateData">
                         <div class="mb-3">
-                            <label class="form-label">First Name</label>
-                            <input type="text" formControlName="FirstNameUpdate" class="form-control" id="FirstName">
+                            <label for="FirstName" class="form-label">First Name</label>
+                            <input type="text" formControlName="FirstName" class="form-control" id="FirstName">
                             <span style="color: red"
-                                *ngIf="isSubmitted && FirstNameUpdate && FirstNameUpdate.invalid && (FirstNameUpdate?.errors?.required || FirstNameUpdate?.errors?.minlength)">
+                                *ngIf="isSubmitted && FirstName && FirstName.invalid && (FirstName?.errors?.required || FirstName?.errors?.minlength)">
                                 First Name need to be at least 3 characters
                             </span>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Last Name</label>
-                            <input type="text" formControlName="LastNameUpdate" class="form-control" id="LastName">
+                            <label for="LastName" class="form-label">Last Name</label>
+                            <input type="text" formControlName="LastName" class="form-control" id="LastName">
                             <span style="color: red"
-                                *ngIf="isSubmitted && LastNameUpdate && LastNameUpdate.invalid && (LastNameUpdate?.errors?.required || LastNameUpdate?.errors?.minlength)">
+                                *ngIf="isSubmitted && LastName && LastName.invalid && (LastName?.errors?.required || LastName?.errors?.minlength)">
                                 Last Name need to be at least 3 characters
                             </span>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" formControlName="EmailUpdate" class="form-control" id="Email">
-                            <span style="color: red" *ngIf="isSubmitted && EmailUpdate && EmailUpdate.invalid">
+                            <label for="Email" class="form-label">Email</label>
+                            <input type="email" formControlName="Email" class="form-control" id="Email">
+                            <span style="color: red" *ngIf="isSubmitted && Email && Email.invalid">
                                 Please Input Valid Email Format
                             </span>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Title</label>
-                            <input type="text" formControlName="TitleUpdate" class="form-control" id="Title">
+                            <label for="Title" class="form-label">Title</label>
+                            <input type="text" formControlName="Title" class="form-control" id="Title">
                             <span style="color: red"
-                                *ngIf="isSubmitted && TitleUpdate && TitleUpdate.invalid && ( TitleUpdate?.errors?.required || TitleUpdate?.errors?.minlength )">
+                                *ngIf="isSubmitted && Title && Title.invalid && ( Title?.errors?.required || Title?.errors?.minlength )">
                                 Title need to be at least 6 characters
                             </span>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Role</label>
-                            <input type="text" formControlName="RoleUpdate" class="form-control" id="Role">
-                            <span style="color: red" *ngIf="isSubmitted && RoleUpdate && RoleUpdate.invalid ">
+                            <label for="Role" class="form-label">Role</label>
+                            <input type="text" formControlName="Role" class="form-control" id="Role">
+                            <span style="color: red" *ngIf="isSubmitted && Role && Role.invalid ">
                                 Invalid Role Input(Input 0 or 1)
                             </span>
                         </div>

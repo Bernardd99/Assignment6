@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Staff } from '../models/Staff';
@@ -47,23 +48,23 @@ export class DashboardComponent implements OnInit {
   })
 
   updateData = new FormGroup({
-    FirstNameUpdate: new FormControl('', [
+    FirstName: new FormControl('', [
       Validators.required,
       Validators.minLength(3)
     ]),
-    LastNameUpdate: new FormControl('', [
+    LastName: new FormControl('', [
       Validators.required,
       Validators.minLength(3)
     ]),
-    EmailUpdate: new FormControl('', [
+    Email: new FormControl('', [
       Validators.required,
       Validators.email
     ]),
-    TitleUpdate: new FormControl('', [
+    Title: new FormControl('', [
       Validators.required,
       Validators.minLength(6)
     ]),
-    RoleUpdate: new FormControl('', [
+    Role: new FormControl('', [
       Validators.required,
       Validators.maxLength(1),
       Validators.pattern("^[0|1]$")
@@ -99,21 +100,6 @@ export class DashboardComponent implements OnInit {
   get ConfirmPassword() {
     return this.InputData.get('ConfirmPassword')
   }
-  get FirstNameUpdate() {
-    return this.updateData.get('FirstNameUpdate')
-  }
-  get LastNameUpdate() {
-    return this.updateData.get('LastNameUpdate')
-  }
-  get EmailUpdate() {
-    return this.updateData.get('EmailUpdate')
-  }
-  get TitleUpdate() {
-    return this.updateData.get('TitleUpdate')
-  }
-  get RoleUpdate() {
-    return this.updateData.get('RoleUpdate')
-  }
 
   ngOnInit(): void {
     this.getStaffs();
@@ -132,14 +118,16 @@ export class DashboardComponent implements OnInit {
 
   addStaff() {
     this.isSubmitted = true
+    console.log(this.InputData.value)
     if (!this.InputData.invalid) {
+      console.log(this.InputData.value)
       this.isSubmitted = false;
       this.staffService.addStaff(this.InputData.value)
         .subscribe((res) => {
           if (res) {
             alert("Data Has Been Added!")
-            let ref = document.getElementById('closeAdd')
-            ref?.click();
+            let closeModal = document.getElementById('closeAdd')
+            closeModal?.click();
             this.InputData.reset();
             this.getStaffs();
 
@@ -147,7 +135,7 @@ export class DashboardComponent implements OnInit {
         },
           (err) => {
             console.log(err);
-            // alert(err.error.message);
+            alert(err.error.message);
           });
     }
   }
@@ -170,37 +158,38 @@ export class DashboardComponent implements OnInit {
 
   updateStaff() {
     this.isSubmitted = true
-    console.log(this.updateData)
+    console.log(this.updateData.value)
     if (!this.updateData.invalid) {
       this.isSubmitted = false;
       this.staffService.updateData(this.updateData.value, this.staffId)
         .subscribe((res) => {
           if (res) {
+            console.log(res)
             alert("Data Has Been Updated!")
-            let ref = document.getElementById('closeUpdate')
-            ref?.click();
+            console.log(this.updateData.value)
+            let closeModal = document.getElementById('closeUpdate')
+            closeModal?.click();
             this.updateData.reset();
             this.getStaffs();
-
           }
         },
           (err) => {
             console.log(err);
-            // alert(err.error.message);
+            alert(err.error.message);
           });
     }
   }
 
   onUpdate(staff: any) {
     this.staffId = staff.id
-    this.updateData.controls['TitleUpdate'].setValue(staff.title)
-    this.updateData.controls['FirstNameUpdate'].setValue(staff.firstName)
-    this.updateData.controls['LastNameUpdate'].setValue(staff.lastName)
-    this.updateData.controls['EmailUpdate'].setValue(staff.email)
+    this.updateData.controls['FirstName'].setValue(staff.firstName)
+    this.updateData.controls['LastName'].setValue(staff.lastName)
+    this.updateData.controls['Title'].setValue(staff.title)
+    this.updateData.controls['Email'].setValue(staff.email)
     if (staff.role == 'User') {
-      this.updateData.controls['RoleUpdate'].setValue('1')
+      this.updateData.controls['Role'].setValue('1')
     } else {
-      this.updateData.controls['RoleUpdate'].setValue('0')
+      this.updateData.controls['Role'].setValue('0')
     }
   }
 }
