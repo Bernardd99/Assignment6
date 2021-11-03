@@ -1,0 +1,6 @@
+Nama : Bernard
+Kode Peserta : FSDO001ONL028 
+Tugas : Assignment 6
+============================
+Notes: 
+Terdapat sedikit bug validasi pada modal Edit saat menekan tombol update jika ada error / pelanggaran validasi, tapi bugnya hanya sebatas tampilan <span> yang mendeskripsikan error dari validasinya yang tidak bisa hilang jika sudah muncul, secara fungsionalitas validasi tetap berjalan dengan lancar sesuai dengan validasi pada modal ADD, sementara ini belum ketemu solusinya, jika ada akan saya update lagi mas, Terima kasih
